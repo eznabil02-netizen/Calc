@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChronoCalc Pro - Calculateur de Temps</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --primary: #4f46e5; }
+        .bg-glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .dark .bg-glass { background: rgba(17, 24, 39, 0.95); }
+        .stat-card { transition: transform 0.2s ease; }
+        .stat-card:hover { transform: translateY(-2px); }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            filter: invert(0.5);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 transition-colors duration-300 min-h-screen font-sans text-slate-900 dark:text-slate-100">
+
+    <nav class="sticky top-0 z-50 bg-glass border-b border-slate-200 dark:border-slate-800 p-4">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold flex items-center gap-2">
+                <i class="fas fa-hourglass-half text-indigo-600"></i>
+                ChronoCalc
+            </h1>
+            <button id="themeToggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto p-4 md:p-8">
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                <label class="block text-sm font-semibold text-slate-500 mb-2 uppercase tracking-wider">Date de Début</label>
+                <input type="date" id="dob" class="w-full bg-slate-50 dark:bg-slate-900 border-none p-3 rounded-xl focus:ring-2 focus:ring-indigo-500 font-medium text-lg">
+                <p id="dayDob" class="mt-2 text-sm text-indigo-600 font-medium"></p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                <label class="block text-sm font-semibold text-slate-500 mb-2 uppercase tracking-wider">Date de Fin</label>
+                <input type="date" id="currentDate" class="w-full bg-slate-50 dark:bg-slate-900 border-none p-3 rounded-xl focus:ring-2 focus:ring-indigo-500 font-medium text-lg">
+                <p id="dayCurrent" class="mt-2 text-sm text-slate-500 font-medium"></p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="stat-card bg-indigo-600 text-white p-4 rounded-2xl text-center shadow-lg shadow-indigo-200 dark:shadow-none">
+                <span class="block text-xs opacity-80 uppercase font-bold mb-1">Années</span>
+                <span id="resYear" class="text-3xl font-black">0</span>
+            </div>
+            <div class="stat-card bg-white dark:bg-slate-800 p-4 rounded-2xl text-center shadow-sm border border-slate-100 dark:border-slate-700">
+                <span class="block text-xs text-slate-500 uppercase font-bold mb-1">Mois</span>
+                <span id="resMonth" class="text-3xl font-black text-indigo-600 dark:text-indigo-400">0</span>
+            </div>
+            <div class="stat-card bg-white dark:bg-slate-800 p-4 rounded-2xl text-center shadow-sm border border-slate-100 dark:border-slate-700">
+                <span class="block text-xs text-slate-500 uppercase font-bold mb-1">Jours</span>
+                <span id="resDay" class="text-3xl font-black text-indigo-600 dark:text-indigo-400">0</span>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 shadow-sm border border-slate-100 dark:border-slate-700 mb-8">
+            <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+                <i class="fas fa-chart-line text-indigo-500"></i>
+                Équivalences Totales
+            </h2>
+            <div class="space-y-6">
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-sm font-medium">Total en Mois</span>
+                        <span id="totalMonths" class="font-bold text-indigo-600">0</span>
+                    </div>
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div id="barMonths" class="bg-indigo-500 h-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-sm font-medium">Total en Jours</span>
+                        <span id="totalDays" class="font-bold text-indigo-600">0</span>
+                    </div>
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div id="barDays" class="bg-emerald-500 h-full transition
